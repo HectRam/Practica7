@@ -23,12 +23,13 @@ import java.util.StringTokenizer;
 public class Operando extends Practica7{
     
     
-    
-    String[] Direccion(String Operando,String dir, int lin,String moddir,String codop,int BanOrg,String ContLoc,String FCC, String moddir2,String FCC3, String ContLoc2){
+                       
+    String[] Direccion(String Operando,String dir, int lin,String moddir,String codop,int BanOrg,String FCC, String moddir2,String FCC3){
         String[] Resultado = new String[] {"null","null","null","0000","0000","null","0000"};
         String[] Busqueda = new String[] {"null","null"};
         String  b=".err",Mdir="null", Res="null";
         String Byte="null";
+        String ContLoc2="null";
         int BanContLoc=0;
         int x=0,y=0,z=0; 
         boolean banRel=false,MaqBan=false;
@@ -56,7 +57,6 @@ public class Operando extends Practica7{
               if(codop.equals("ORG")){
                   int ORG=0; 
                   if(BanOrg!=1){
-                   System.out.println("ORG: "+ORG+"ContLoc"+ContLoc);
                   if(Operando.matches("^\\$[0-9A-Fa-f]*")||Operando.matches("^\\@[0-7]+")||Operando.matches("^\\%[10]*$")){
                       //Entra Hexadecimal
                       if(Operando.matches("^\\$.*")){
@@ -65,8 +65,7 @@ public class Operando extends Practica7{
                            ORG=Integer.parseInt(Hexa,16);
                           if(ORG<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(ORG).toUpperCase();
-                              ContLoc2=ContLoc;
+                              ContLoc2=Integer.toHexString(ORG).toUpperCase();
                               BanOrg=1;
                               Mdir="DTV";
                               }
@@ -78,8 +77,7 @@ public class Operando extends Practica7{
                            ORG=Integer.parseInt(Hexa,8);
                           if(ORG<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(ORG).toUpperCase(); 
-                              ContLoc2=ContLoc;
+                              ContLoc2=Integer.toHexString(ORG).toUpperCase();
                               BanOrg=1;
                               Mdir="DTV";
                               }
@@ -91,7 +89,7 @@ public class Operando extends Practica7{
                            ORG=Integer.parseInt(Hexa,2);
                           if(ORG<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(ORG).toUpperCase(); 
+                              ContLoc2=Integer.toHexString(ORG).toUpperCase(); 
                               BanOrg=1;
                               }
                              }//termina Binario
@@ -99,8 +97,7 @@ public class Operando extends Practica7{
                                   if(Operando.matches("^[0-9]*")){
                                    ORG=Integer.parseInt(Operando);
                                    if(ORG<=65535){
-                                   ContLoc=Integer.toHexString(ORG).toUpperCase();
-                                   ContLoc2=ContLoc;
+                                   ContLoc2=Integer.toHexString(ORG).toUpperCase();
                                   Mdir="DTV";
                                      BanOrg=1; 
                                    }
@@ -127,8 +124,7 @@ public class Operando extends Practica7{
                            EQU=Integer.parseInt(Hexa,16);
                           if(EQU<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(EQU).toUpperCase(); 
-                              ContLoc2=ContLoc;
+                              ContLoc2=Integer.toHexString(EQU).toUpperCase();
                               Mdir="DTV";
                               }
                              }//termina hexadecimal
@@ -141,8 +137,7 @@ public class Operando extends Practica7{
                            EQU=Integer.parseInt(Hexa,8);
                           if(EQU<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(EQU).toUpperCase(); 
-                              ContLoc2=ContLoc;
+                              ContLoc2=Integer.toHexString(EQU).toUpperCase();
                               Mdir="DTV";
                               }
                              }//Termina Octal
@@ -154,8 +149,7 @@ public class Operando extends Practica7{
                            EQU=Integer.parseInt(Hexa,2);
                           if(EQU<=65535){
                                //inserta el valor en Hexadecimal al Contador Logico
-                              ContLoc=Integer.toHexString(EQU).toUpperCase();
-                              ContLoc2=ContLoc;
+                              ContLoc2=Integer.toHexString(EQU).toUpperCase();
                               Mdir="DTV";
                               }
                              }//Termina Binario
@@ -163,8 +157,7 @@ public class Operando extends Practica7{
                                   if(Operando.matches("^[0-9]?[0-9]*")){
                                    EQU=Integer.parseInt(Operando);
                                    if(EQU<=65535){
-                                   ContLoc=Integer.toHexString(EQU).toUpperCase();
-                                   ContLoc2=ContLoc;
+                                   ContLoc2=Integer.toHexString(EQU).toUpperCase();
                                     Mdir="DTV"; 
                                    }
                                   }
@@ -196,9 +189,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Hexa,16);
                            if(DiCons<=255&&DiCons>=0){
                                //suma 1 l contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+1;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(1); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -213,9 +204,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Oct,8);
                            if(DiCons<=255&&DiCons>=0){
                                //suma 1 l contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+1;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(1);
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -230,9 +219,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Hexa,2);
                            if(DiCons<=255&&DiCons>=0){
                                //suma 1 al contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+1;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(1); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -246,9 +233,7 @@ public class Operando extends Practica7{
                           DiCons=Integer.parseInt(Operando,10);
                            if(DiCons<=255&&DiCons>=0){
                                //suma 1 al contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+1;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                                Busqueda[0]=Integer.toString(1);
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -274,10 +259,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Hexa,16);
                            if(DiCons<=65535&&DiCons>=0){
                                //suma 2 a contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+2;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
-                               Mdir="DTV";
+                                Busqueda[0]=Integer.toString(2);
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
                                error.newLine();
@@ -291,9 +273,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Oct,8);
                            if(DiCons<=65535&&DiCons>=0){
                                //suma 2 a contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+2;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                                Busqueda[0]=Integer.toString(2); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -308,9 +288,7 @@ public class Operando extends Practica7{
                            DiCons=Integer.parseInt(Hexa,2);
                            if(DiCons<=65535&&DiCons>=0){
                                //suma 2 a contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+2;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                                Busqueda[0]=Integer.toString(2); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -322,9 +300,7 @@ public class Operando extends Practica7{
                           DiCons=Integer.parseInt(Operando,10);
                            if(DiCons<=65535&&DiCons>=0){
                                //suma 2 al contloc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+2;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(2); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -353,9 +329,7 @@ public class Operando extends Practica7{
                             DiCons =FCC2.length();
                           //  System.out.println("FCC: "+FCC+" FCC2: "+FCC2+" TamFCC2: "+DiCons);
                          //   System.out.println("FCC2"+FCC2+"Tam "+DiCons);
-                            int cont=Integer.parseInt(ContLoc,16);
-                            cont=cont+DiCons;//suma la longitud del operando
-                           ContLoc=Integer.toHexString(cont).toUpperCase();
+                            Busqueda[0]=Integer.toString(DiCons);
                            Mdir="DTV";
                       }else{
                       error.write("Linea: "+lin+" Error:"+codop+" no cumple con el las especificaciones: "+DiCons);
@@ -387,9 +361,7 @@ public class Operando extends Practica7{
                            DiMem=Integer.parseInt(Hexa,16);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem);
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -404,9 +376,7 @@ public class Operando extends Practica7{
                            DiMem=Integer.parseInt(Oct,8);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -420,9 +390,7 @@ public class Operando extends Practica7{
                            DiMem=Integer.parseInt(Bin,2);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -434,9 +402,7 @@ public class Operando extends Practica7{
                           DiMem=Integer.parseInt(Operando,10);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -463,10 +429,8 @@ public class Operando extends Practica7{
                            DiMem=Integer.parseInt(Hexa,16);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando*2 con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
                                DiMem=DiMem*2;
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -483,11 +447,9 @@ public class Operando extends Practica7{
                                
                                
                                //suma resultado de operando*2 con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
-                               System.out.println("Octal: "+DiMem+" ContLoc: "+cont);
+                               
                                DiMem=DiMem*2;
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               Busqueda[0]=Integer.toString(DiMem); 
                                
                                Mdir="DTV";
                            }else{
@@ -502,10 +464,10 @@ public class Operando extends Practica7{
                            DiMem=Integer.parseInt(Bin,2);
                            if(DiMem<=65535&&DiMem>=0){
                                //suma resultado de operando*2 con ContLoc
-                               int cont=Integer.parseInt(ContLoc,16);
+                               
                                DiMem=DiMem*2;
-                               cont=cont+DiMem;
-                               ContLoc=Integer.toHexString(cont).toUpperCase(); 
+                               int cont=DiMem;
+                               Busqueda[0]=Integer.toString(DiMem); 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -516,14 +478,10 @@ public class Operando extends Practica7{
                           if(Operando.matches("^[0-9]?[0-9]*")){
                           DiMem=Integer.parseInt(Operando,10);
                            if(DiMem<=65535&&DiMem>=0){
-                               //suma resultado de operando con ContLoc
+                               // toma el resultado
                                
-                               int cont=Integer.parseInt(ContLoc,16);
                                DiMem=DiMem*2;
-                               System.out.println("DiMem: "+DiMem+" cont: "+cont);
-                               cont=cont+DiMem;
-                               System.out.println("DiMem: "+DiMem+" cont: "+cont);
-                               ContLoc=Integer.toHexString(cont).toUpperCase();
+                                Busqueda[0]=Integer.toString(DiMem);
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiMem+")");
@@ -576,11 +534,6 @@ public class Operando extends Practica7{
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
                   String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   }
                   }//termina Hexadecimal
@@ -596,12 +549,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(DIR);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   }
                   banDir=true;
@@ -619,12 +566,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(DIR);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   }
                   }//termina binario
@@ -643,12 +584,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(DIR);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   }
                   }
@@ -674,12 +609,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(EXT);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////  
                   }
                   }//termina Hexadecimal
@@ -696,11 +625,6 @@ public class Operando extends Practica7{
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
                   String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////  
                   }
                   
@@ -718,12 +642,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(EXT);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////  
                   }
                   }//termina binario
@@ -750,12 +668,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(EXT);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////                  }
                   }
                   }
@@ -809,13 +721,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -827,13 +732,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
@@ -844,13 +742,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                  }
                  if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
@@ -861,13 +752,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -903,13 +787,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -921,13 +798,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
@@ -938,13 +808,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                  }
                  if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
@@ -955,13 +818,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -1001,13 +857,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -1021,13 +870,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
@@ -1038,13 +880,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                  }
                  if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
@@ -1055,13 +890,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -1084,13 +912,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir=IDXcade;//Acumulador
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
               }
@@ -1109,13 +930,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -1128,13 +942,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
@@ -1145,13 +952,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                  }
                  //IDX Pre/Post
@@ -1164,13 +964,6 @@ public class Operando extends Practica7{
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                  }
@@ -1184,13 +977,6 @@ public class Operando extends Practica7{
                  // String op=IDX.nextToken();
                   String MaqDir="0000";
                   Busqueda =Bytes(codop,Mdir,MaqDir,IDXcade);
-                  ////////////////////////Operacion para ContLoc
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   Mdir="IDX";
                   /////////////////////////////////////////////// 
                       }else{
@@ -1224,13 +1010,6 @@ public class Operando extends Practica7{
                           String op=IDX.nextToken();
                           String MaqDir= Integer.toString(hex);
                           Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                          ////////////////////////Operacion para ContLoc
-                          String cadby=Busqueda[0];
-                          int byt=Integer.parseInt(cadby);
-                          int cont=Integer.parseInt(ContLoc,16);
-                          cont=cont+byt;
-                          ContLoc=Integer.toHexString(cont).toUpperCase();
-                          MaqBan=true;
                          /////////////////////////////////////////////// 
                         if(hex>=-32768&&hex<=-1){
                        x = hex;  
@@ -1256,13 +1035,6 @@ public class Operando extends Practica7{
                         String op=IDX.nextToken();
                         String MaqDir= Integer.toString(oct);
                         Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                        ////////////////////////Operacion para ContLoc
-                        String cadby=Busqueda[0];
-                        int byt=Integer.parseInt(cadby);
-                        int cont=Integer.parseInt(ContLoc,16);
-                        cont=cont+byt;
-                        ContLoc=Integer.toHexString(cont).toUpperCase();
-                        MaqBan=true;
                         /////////////////////////////////////////////// 
                         if(oct>=-32768&&oct<=-1){
                        x = oct;  
@@ -1286,13 +1058,6 @@ public class Operando extends Practica7{
                      String op=IDX.nextToken();
                      String MaqDir= Integer.toString(bin);
                      Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                     ////////////////////////Operacion para ContLoc
-                     String cadby=Busqueda[0];
-                     int byt=Integer.parseInt(cadby);
-                     int cont=Integer.parseInt(ContLoc,16);
-                     cont=cont+byt;
-                     ContLoc=Integer.toHexString(cont).toUpperCase();
-                     MaqBan=true;
                      /////////////////////////////////////////////// 
                         if(bin>=-32768&&bin<=-1){
                        x = bin;  
@@ -1320,11 +1085,6 @@ public class Operando extends Practica7{
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
                   ////////////////////////Operacion para ContLoc
                   String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   /////////////////////////////////////////////// 
                     }
           }else{
@@ -1348,13 +1108,6 @@ public class Operando extends Practica7{
                      String op=IDX.nextToken();
                      String MaqDir=Valor;
                      Busqueda =Bytes(codop,Mdir,MaqDir,op);
-                     ////////////////////////Operacion para ContLoc
-                     String cadby=Busqueda[0];
-                     int byt=Integer.parseInt(cadby);
-                     int cont=Integer.parseInt(ContLoc,16);
-                     cont=cont+byt;
-                     ContLoc=Integer.toHexString(cont).toUpperCase();
-                     MaqBan=true;
                      /////////////////////////////////////////////// 
               
               
@@ -1388,12 +1141,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////  
                   //return Mdir;
                   if(IMM>=-256&&IMM<=-1){
@@ -1413,12 +1160,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////  
                   if(IMM>=-32768&&IMM<=-1){
                        x = IMM;  
@@ -1443,12 +1184,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   if(IMM>=-256&&IMM<=-1){
                        x = IMM;  
@@ -1467,12 +1202,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   if(IMM>=-32768&&IMM<=-1){
                        x = IMM;  
@@ -1497,12 +1226,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   if(IMM>=-256&&IMM<=-1&&!immcad.matches("^0.*")){
                        x = IMM;  
@@ -1521,12 +1244,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   if(IMM>=-32768&&IMM<=-1||immcad.matches("^0.*")){
                        x = IMM;  
@@ -1552,12 +1269,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   
                       }
@@ -1572,12 +1283,6 @@ public class Operando extends Practica7{
                   String MaqDir= Integer.toHexString(IMM);
                   MaqDir=fillContLoc(MaqDir);//rellena los
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
-                  MaqBan=true;
                   ///////////////////////////////////////////////
                   
                       }
@@ -1775,28 +1480,22 @@ public class Operando extends Practica7{
       }
        
           error.close();
-          if(Mdir!="null"&&BanContLoc==0&&MaqBan==false){
+          /*if(Mdir!="null"&&BanContLoc==0&&MaqBan==false){
                   ///Calcular bytes
                   String MaqDir=" ",et="null";
                   Busqueda =Bytes(codop,Mdir,MaqDir,et);
-                  String cadby=Busqueda[0];
-                  int byt=Integer.parseInt(cadby);
-                  int cont=Integer.parseInt(ContLoc,16);
-                  cont=cont+byt;
-                  ContLoc=Integer.toHexString(cont).toUpperCase();
                   ///////////////////////////////////////////////
-          }
+          }*/
         }catch(Exception e){
             System.out.println("Hubo un problema en los modos de direccionamiento: "+e);
             
         }
-        ContLoc=fillContLoc(ContLoc);
         ContLoc2=fillContLoc(ContLoc2);
         //System.out.println("Mdir: "+Mdir+"Res op: "+Res);
         Resultado[0]=Mdir;
         Resultado[1]=Res;
         Resultado[2]=Integer.toString(BanOrg);
-        Resultado[3]=ContLoc;
+        Resultado[3]=Busqueda[0];//codigo por calcular
         Resultado[4]=Busqueda[1].toUpperCase();//Codigo maquina
         Resultado[5]=FCC3;
         Resultado[6]=ContLoc2;
