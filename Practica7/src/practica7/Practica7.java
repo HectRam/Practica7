@@ -30,7 +30,7 @@ public class Practica7 {
         String[] Busqueda  = new String[] {"null","null"};
         String[] Linea = new String[]{" "," "," "," "," "," "};
         thisLine = null;
-        String ContLoc="0000", ContLoc2="0000",FCC3="null";
+        String ContLoc="null", ContLoc2="null",FCC3="null",contador="0000";
         int poslin=0,c=0,pos=0,banbuffer=0,banCod=0,sioperI=2,operval=0,BanOrg=0,compara=0,tam2=0;
                 
         espacio es;
@@ -38,7 +38,7 @@ public class Practica7 {
         String CodMaq="null";
         String etiqueta = null, codop = null, operando = null, comentario=null,linToken=null,codoplin=null,sioperS=null,codopprue=null,Mdir=null,FCC="";
         String exEt=null,exCod=null,moddir=null,codcal=null,bytescal=null,bytesxcal=null,totbytes=null,samecod=null,dircod=null,samecod2=null,Res="null";
-        String moddir2="null",bits="null";
+        String moddir2="null",bits="null",moddir3="null";
         Vector<String> cadena;
         cadena = new Vector<>();
         System.out.print("Ruta del archivo? ");
@@ -166,7 +166,7 @@ public class Practica7 {
                          
                          
                          String TABOP="TABOP";
-                         String mayus,maux="null",maux2="null",maux3="null";
+                         String mayus,maux="null",maux2="null",maux3="null",maux4="null";
                          String compare="null",comparecod="null";
                          try{
                              FileInputStream fsaux = new FileInputStream(TABOP+a);
@@ -231,6 +231,7 @@ public class Practica7 {
                                                maux3=bytesxcal;
                                                CodMaq=codcal;//codigo maquina
                                               // System.out.println("Codop "+codop+" Operando"+moddir);
+                                              maux4=moddir;
                                            }
                                            if(moddir.equals("INM")&&sioperI==0){
                                                modosdir.write(moddir+" ");
@@ -294,7 +295,11 @@ public class Practica7 {
                          //System.out.println("moddir: "+moddir+" "+maux);
                          }
                          if(maux3!="null"){
-                             bits=maux3;
+                             ContLoc=maux3;
+                         //System.out.println("moddir: "+moddir+" "+maux);
+                         }
+                         if(maux4!="null"){
+                             moddir3=maux4;
                          //System.out.println("moddir: "+moddir+" "+maux);
                          }
                          }//termina practica 2
@@ -320,17 +325,17 @@ public class Practica7 {
                                   
                                      operando=linToken;
                                  //    System.out.println("Operando  "+operando);
-                                    
-                                    Resultado = op.Direccion(operando,dir,c,moddir,codop,BanOrg, ContLoc,FCC,moddir2,FCC3,ContLoc2);
+                                    if(!moddir3.equals("INH")){
+                                    Resultado = op.Direccion(operando,dir,c,moddir,codop,BanOrg,FCC,moddir2,FCC3);
                                     Mdir=Resultado[0];
                                     Res=Resultado[1];
                                     BanOrg=Integer.parseInt(Resultado[2]);
-                                    ContLoc=Resultado[3];
+                                    ContLoc=Resultado[3];//Codigo por calcular
                                     CodMaq=Resultado[4];
                                     FCC3=Resultado[5];
-                                    ContLoc2=Resultado[6];
+                                    ContLoc2=Resultado[6];///Org y Equ
                                     // System.out.println("Modo de direccion "+Mdir);
-                                     
+                                     }
                                      if(codop.equals(" ")){
                                          
                                          codop=linToken;
@@ -473,14 +478,14 @@ public class Practica7 {
                   if(etiqueta!="null"){
                       
                   }
-                  
-                  if(bits!="null"){
+                  /*
+                  if(bits!="null"&&operando=="null"){
                       String cadby=bits;
                   int byt=Integer.parseInt(cadby);
                   int cont=Integer.parseInt(ContLoc,16);
                   cont=cont+byt;
                   ContLoc=Integer.toHexString(cont).toUpperCase();
-                  }
+                  }*/
                      ////////////////Inserta datos
                      if(banCod==1&&errBan==false/*&&compara==0*/){
                       
@@ -499,6 +504,23 @@ public class Practica7 {
                       }
                       
                       if(codoplin!="null"){
+                      String contador3=contador; 
+                      if(ContLoc2.equals("null")){
+                          if(ContLoc.equals("null")){
+                              String MaqDir="null",et="null";
+                          Busqueda =op.Bytes(codop,Mdir,MaqDir,et);
+                          ContLoc=Busqueda[0];
+                      }
+                  int byt=Integer.parseInt(ContLoc);
+                  int cont=Integer.parseInt(contador3,16);
+                  cont=cont+byt;
+                  contador3=Integer.toHexString(cont).toUpperCase();
+                          }else{
+                              contador=ContLoc2;
+                              contador3=ContLoc2;
+                              System.out.println("ContLoc2: "+ContLoc2);
+                          }
+                      contador3=op.fillContLoc(contador3);
                           ///Entra Tabsim
                         if(codop!="null"&&etiqueta!="null"){
                        //escribe en el archivo tabsim
@@ -508,7 +530,7 @@ public class Practica7 {
                      // System.out.println("Codop Equ: tronador04"+codop);
                       compara= op.TabsimCheck(dir,etiqueta);
                       if(compara==0){
-                      tabsim.write(etiqueta.toUpperCase()+"|"+ContLoc);
+                      tabsim.write(etiqueta.toUpperCase()+"|"+contador);
                       tabsim.newLine();
                       }else{//Entra a ordenar y borrar etiqueta 
                           //op.Ordena(dir,etiqueta);
@@ -530,8 +552,8 @@ public class Practica7 {
                               error.write("Error Linea: "+c+" No se encontro la etiqueta en Tabsim para: "+operando);
                               error.newLine();
                               compara=1;
-                              ContLoc=ContLoc2;
-                              System.out.println("ContLoc2"+ContLoc2);
+                              contador3=contador;
+                              
                           }
                          }///Termina
                         if(compara==0){
@@ -539,19 +561,19 @@ public class Practica7 {
                      //inserta resultado de Operando 
                       operando=Res;
                       String nu=Integer.toString(c);
-                      Linea=op.fillline(nu, ContLoc2, etiqueta, codop, operando, codoplin);
+                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin);
                   System.out.println(Linea[0]+"  co  "+Linea[1]+"  ee  "+Linea[2]+"  cc  "+Linea[3]+"  oo  "+Linea[4]+"  op  "+Linea[5]+"  cm  "+CodMaq);
                   instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
                   instrucciones.newLine();
-                  ContLoc2=ContLoc;
+                            contador=contador3;
+                  
                       }else{
-                          
                           String nu=Integer.toString(c);
-                      Linea=op.fillline(nu, ContLoc2, etiqueta, codop, operando, codoplin);
+                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin);
                   System.out.println(Linea[0]+"  co  "+Linea[1]+"  ee  "+Linea[2]+"  cc  "+Linea[3]+"  oo  "+Linea[4]+"  op  "+Linea[5]+"  cm  "+CodMaq);
                   instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
                   instrucciones.newLine();      
-                       ContLoc2=ContLoc;
+                       contador=contador3;
                       }
                        }
                       }
@@ -594,14 +616,15 @@ public class Practica7 {
                      operval=0;
                      compara=0;
                      CodMaq=" ";
-                     bits="null";
                      moddir2="null";
+                     moddir3="null";
+                     ContLoc2="null";
                      if(linToken.matches(".*END.*")||linToken.matches(".*End.*")||linToken.matches(".*end.*")){//verifica si tiene End
                            banEnd = true;
                            System.out.println("Entro End");
                            String nu=Integer.toString(c);
                            nu=op.fillContLoc(nu);
-                           instrucciones.write(nu+"            "+ContLoc+"             "+"null"+"                "+"END"+"               "+"null"+"                      "+"null"+"                 "+"null");
+                           instrucciones.write(nu+"            "+contador+"             "+"null"+"                "+"END"+"               "+"null"+"                      "+"null"+"                 "+"null");
                            instrucciones.newLine();
                        }
                       
