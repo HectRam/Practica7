@@ -5,22 +5,28 @@
  */
 package practica7;
 
-import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.File;
+
+
 import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.FileWriter;
+
+import java.io.*;
+import java.io.BufferedReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
+import java.util.Vector;
+import java.io.FileReader;
 /**
  *
  * @author Hector
  */
 public class Operando extends Practica7{
+
+    static boolean matches(String $09AFaf) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
                        
@@ -38,7 +44,7 @@ public class Operando extends Practica7{
         FileWriter fw=new FileWriter(f,true);
         BufferedWriter error=new BufferedWriter(fw);
         
-           // System.out.println("Codop antes: "+codop);
+           System.out.println("Codop antes: "+codop);
          // System.out.println("Operando mod antes: "+Operando+" moddir: "+moddir);
          
       if(Operando.matches("^[a-zA-Z]{0,8}[^;]{0,1}[\\w]$")||Operando.matches("^\\$[0-9A-Fa-f]*")||Operando.matches("^\\@[0-7].*")||Operando.matches("^\\%.*")||Operando.matches("^\\#.*")||Operando.matches("^[0-9].*")||Operando.matches("^[a-zA-Z].*")||Operando.matches("^\\[.*\\]$")||Operando.matches("^\\-.*")||Operando.matches("^\\,.*")||codop.equals("FCC")){
@@ -48,8 +54,8 @@ public class Operando extends Practica7{
          codop=codop.toUpperCase();
           //System.out.println("Codop mod: "+codop);
          // System.out.println("A2: "+z);
-        // System.out.println("Operando mod Despues: "+Operando+" moddir: "+moddir);
-         
+         System.out.println("Operando mod Despues: "+Operando+" moddir: "+moddir);
+         codop.trim();
          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                /////////////////////////////////////////////////////ContLoc
               //////////////////////////////////////////////////////////ORG
@@ -300,7 +306,7 @@ public class Operando extends Practica7{
                           DiCons=Integer.parseInt(Operando,10);
                            if(DiCons<=65535&&DiCons>=0){
                                //suma 2 al contloc
-                               Busqueda[0]=Integer.toString(2); 
+                               Busqueda[0]="2"; 
                                Mdir="DTV";
                            }else{
                                error.write("Linea: "+lin+" Error:"+codop+" no cumple con el valor requerido (valor actual:"+DiCons+")");
@@ -507,7 +513,7 @@ public class Operando extends Practica7{
          
          
           //Directo y Extendido
-          if(Operando.matches("^[a-zA-Z]{0,8}[^;]{0,1}[\\w]$")||Operando.matches("^\\%[10]*$")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^\\@[0-7]+")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^\\$[0-9A-Fa-f]*")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^[0-9]+")&&BanContLoc!=1&&!codop.equals("ORG"))
+          if(Operando.matches("^[a-zA-Z]{0,8}[^;]{0,1}[\\w]$")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^\\%[10]*$")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^\\@[0-7]+")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^\\$[0-9A-Fa-f]*")&&BanContLoc!=1&&!codop.equals("ORG")||Operando.matches("^[0-9]+")&&BanContLoc!=1&&!codop.equals("ORG"))
           {
           //DIR
               boolean banDir=false;
@@ -2077,8 +2083,7 @@ public class Operando extends Practica7{
                 Linea[1]=ContLoc;
                 break;
         }
-        
-        switch(size3){
+       switch(size3){
             
             case 1: 
                 Linea[2]=etiqueta+"       ";
@@ -2197,25 +2202,36 @@ public class Operando extends Practica7{
                 Linea[5]=Mdir;
                 break;    
         }
+        /*Linea[0]=Linea[0]+"       ";
+        Linea[1]=Linea[1]+"       ";
+        Linea[2]=etiqueta+"       ";
+        Linea[3]=codop+"       ";
+        Linea[4]=operando+"       ";
+        Linea[5]=Mdir+"       ";*/
           return Linea;      
         }
-        public void Ordena(String dir,String etiqueta){
-            
-            String mayus,exetq,ContLoc=null;
-                          
+        public void Ordena(String dir,String etiqueta,String i){
+            System.out.println("Esta Dentro...dir: "+dir+" etiqueta "+etiqueta);
+            String mayus,exetq,ContLoc=null,contador="0000",ContLoc2="null";
+                          Ordenamiento Recon = new Ordenamiento();
+                          String dir2=dir+"2";
                          try{
-                             FileInputStream fsaux = new FileInputStream(dir+".INST");
+                             FileInputStream fsaux = new FileInputStream(dir+i);
                              DataInputStream dsaux = new DataInputStream(fsaux);
                              BufferedReader  braux = new BufferedReader(new InputStreamReader(dsaux));
-                             
+                              File fsaux2 = new File(dir2+i);
+                              FileWriter dsaux2 = new FileWriter(fsaux2);
+                              BufferedWriter  instruccion2 = new BufferedWriter(dsaux2);
+                                       
                              String linaux,ContLocAux="null",numaux="null";
                             String[] auxiliar =new String[]{"null","null","null","null","null","null","null"};
                             String[] Resultado =new String[]{"null","null"};
-                             boolean contban=false;
+                             boolean contban=false,ban=false;
+                              
                              while((linaux = braux.readLine())!= null){
                                  
                                  StringTokenizer aucod = new StringTokenizer(linaux,"       ");
-                                        mayus=etiqueta;
+                                       
                                    auxiliar[0]=aucod.nextToken();//Linea
                                    auxiliar[1]=aucod.nextToken();//ContLoc
                                    auxiliar[2]=aucod.nextToken();//Etiqueta
@@ -2223,40 +2239,146 @@ public class Operando extends Practica7{
                                    auxiliar[4]=aucod.nextToken();//Oper
                                    auxiliar[5]=aucod.nextToken();//Modo de direccion
                                    auxiliar[6]=aucod.nextToken();//Codigo Maquina
-                                   System.out.println("Operando: "+etiqueta+" Opertds: "+auxiliar[2]);
-                                   if(!auxiliar[2].equals(mayus)){
-                                       File fsaux2 = new File(dir+"2"+".INST");
-                                       FileWriter dsaux2 = new FileWriter(fsaux2);
-                                       BufferedWriter  instruccion2 = new BufferedWriter(dsaux2);
-                                           String linaux2;   
-                                               //ordena el archivo instruccion 
-                                             instruccion2.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);                 
-                                              ContLocAux=auxiliar[1];
-                                              numaux=auxiliar[0];
-                                       instruccion2.close();
-                                   }else{
-                                       File fsaux2 = new File(dir+"2"+".INST");
-                                       FileWriter dsaux2 = new FileWriter(fsaux2);
-                                       BufferedWriter  instruccion2 = new BufferedWriter(dsaux2);
-                                           String linaux2;   
-                                               //ordena el archivo instruccion 
-                                       if(ContLocAux!="null"){                      
-                                  instruccion2.write(numaux+"       "+ContLocAux+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);                 
-                                       }else{     
-                                      String dum="null",dum2="null";
+                                   //System.out.println(auxiliar[0]+"   "+auxiliar[1]+"   "+auxiliar[2]+"   "+auxiliar[3]+"   "+auxiliar[4]+"   "+auxiliar[5]+"   "+auxiliar[6]);
+                                   
+                                   
+                                  // System.out.println("Operando: "+etiqueta+" Opertds: "+auxiliar[2]+" Ban: "+contban);
+                                   if(auxiliar[2].compareTo(etiqueta)==0&&contban!=true){
+                                      // System.out.println("Entro bool: Operando: "+etiqueta+" Opertds: "+auxiliar[2]+" Ban: "+contban);
                                       
-                                      Resultado=Bytes(auxiliar[3],auxiliar[5],dum,dum2);
-                                      auxiliar[1]=Resultado[0];
-                                      instruccion2.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                       // if(auxiliar[3].equals("EQU")||auxiliar[3].equals("ORG")){       
+                                              ContLocAux=auxiliar[1];
+                                               // }
+                                              
                                        
-                                       }    
-                                       instruccion2.close();
                                        contban=true;
+                                   }else{
+                                       if(contban==false){
+                                      // System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                       auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                       instruccion2.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                       instruccion2.newLine();
+                                       
+                                       }
+                                       if(contban==true){
+                                       
+                                             
+                                               //ordena el archivo instruccion 
+                                       if(ContLocAux!="null"){                
+                                         //  System.out.println("Entro ContLocAux: "+numaux+"       "+ContLocAux+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                           auxiliar=fillline(auxiliar[0],ContLocAux,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                  instruccion2.write(auxiliar[0]+"       "+ContLocAux+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);   
+                                  instruccion2.newLine();
+                                 // if(auxiliar[3].equals("EQU")||auxiliar[3].equals("ORG")){ 
+                                  contador=ContLocAux;//}
+                                           
+                                           Resultado=Recon.ReContLoc(auxiliar[3],auxiliar[5],auxiliar[4]);
+                                      //System.out.println("ContLoc: "+Resultado[0]+" ContLoc2: "+Resultado[1]);
+                                      String contador3=contador;
+                                      ContLoc2=Resultado[1];////contloc EQU Y Org
+                                        if(ContLoc2.equals("null")){
+                                      ContLoc=Resultado[0];/////Bytes generales 
+                                     int byt=Integer.parseInt(ContLoc);
+                                     int cont=Integer.parseInt(contador3,16);
+                                     cont=cont+byt;
+                                     contador3=Integer.toHexString(cont).toUpperCase();
+                                      }else{
+                                        contador=ContLoc2;
+                                        contador3=ContLoc2;
+                                        System.out.println("ContLoc2: "+ContLoc2);
+                                           }
+                                        contador3=fillContLoc(contador3);
+                                        contador=contador3;
+                                        contador=fillContLoc(contador);
+                                       }else{     
+                                      
+                                      Resultado=Recon.ReContLoc(auxiliar[3],auxiliar[5],auxiliar[4]);
+                                      //System.out.println("ContLoc: "+Resultado[0]+" ContLoc2: "+Resultado[1]);
+                                      String contador3=contador;
+                                      ContLoc2=Resultado[1];////contloc EQU Y Org
+                                        if(ContLoc2.equals("null")){
+                                      ContLoc=Resultado[0];/////Bytes generales 
+                                     int byt=Integer.parseInt(ContLoc);
+                                     int cont=Integer.parseInt(contador3,16);
+                                     cont=cont+byt;
+                                     contador3=Integer.toHexString(cont).toUpperCase();
+                                      }else{
+                                        contador=ContLoc2;
+                                        contador=fillContLoc(contador);
+                                        contador3=ContLoc2;
+                                        contador3=fillContLoc(contador3);
+                                       // System.out.println("ContLoc2: "+ContLoc2);
+                                           }
+                                        auxiliar=fillline(auxiliar[0],contador,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                        //System.out.println("Entrada de datos recalculados: "+auxiliar[0]+"       "+contador+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                      instruccion2.write(auxiliar[0]+"       "+contador+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                      instruccion2.newLine(); 
+                                      contador=contador3;
+                                       ban=true;
+                                       }    
+                                       
+                                       
+                                       ContLocAux="null";
+                                       numaux="null";
                                    }
-                                   ContLocAux="null";
-                                   numaux="null";
                                    }
-                             dsaux.close(); 
+                                    
+                                   }
+                               instruccion2.close();
+                                dsaux2.close();
+                               dsaux.close();
+                               braux.close();
+                               ///borra instruccion original
+                               if(1==1){
+                               File ins =new File(dir+i);
+                            FileWriter fwins=new FileWriter(ins,true);
+                             BufferedWriter instrucciones=new BufferedWriter(fwins);
+                             fwins.close();
+                             instrucciones.close();
+                               ins.delete();
+                               }
+                               if(2==2){
+                               ////////////////////////////////Lee instruccion2
+                             FileInputStream fsaux3 = new FileInputStream(dir2+i);
+                             DataInputStream dsaux3 = new DataInputStream(fsaux3);
+                             BufferedReader  braux3 = new BufferedReader(new InputStreamReader(dsaux3));
+                             ///////////////////Crea y escribe instruccion original
+                                      File ins =new File(dir+i);
+                                FileWriter fwins=new FileWriter(ins,true);
+                            BufferedWriter instrucciones=new BufferedWriter(fwins);
+                             ////////////////////////////////////////////////////
+                             
+                                String linaux2;
+                               while((linaux2 = braux3.readLine())!= null){
+                                 StringTokenizer aucod2 = new StringTokenizer(linaux2,"       ");
+                                 
+                                 auxiliar[0]=aucod2.nextToken();//Linea
+                                   auxiliar[1]=aucod2.nextToken();//ContLoc
+                                   auxiliar[2]=aucod2.nextToken();//Etiqueta
+                                   auxiliar[3]=aucod2.nextToken();//Codop
+                                   auxiliar[4]=aucod2.nextToken();//Oper
+                                   auxiliar[5]=aucod2.nextToken();//Modo de direccion
+                                   auxiliar[6]=aucod2.nextToken();//Codigo Maquina
+                                // System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                       auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                       instrucciones.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                       instrucciones.newLine();
+                                       
+                               }
+                               instrucciones.close();
+                               fwins.close();
+                               
+                               braux3.close();
+                               dsaux3.close();
+                               }
+                                 if(3==3){
+                               File ins2 =new File(dir2+i);
+                            FileWriter fwins2=new FileWriter(ins2,true);
+                             BufferedWriter instrucciones3=new BufferedWriter(fwins2);
+                             instrucciones3.close();
+                             fwins2.close();
+                               ins2.delete();
+                               }
                           }catch(Exception r){
                              System.out.println("Hubo un error en el metodo Ordena "+r);
                          }
