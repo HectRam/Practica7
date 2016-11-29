@@ -51,9 +51,9 @@ public class Practica7 {
              DataInputStream input = new DataInputStream(fstr);
             BufferedReader lectb = new BufferedReader(new InputStreamReader(input));
             //escribe en el archivo inst
-            File ins =new File(dir+i);
+            /*File ins =new File(dir+i);
             FileWriter fwins=new FileWriter(ins,true);
-            BufferedWriter instrucciones=new BufferedWriter(fwins);
+            BufferedWriter instrucciones=new BufferedWriter(fwins);*/
             //escribe en el archivo errores
             File f =new File(dir+b);
             FileWriter fw=new FileWriter(f,true);
@@ -72,8 +72,14 @@ public class Practica7 {
             banderalim=false;
             banEt=false;
             //System.out.println("Linea---ETQ-----CODOP-----OPER---");
-            instrucciones.write("Linea-----CONTLOC----ETQ---------CODOP----------OPER------------ModDir---------CodiMaq");
+            if(0==0){
+            File ins =new File(dir+i);
+            FileWriter fwins=new FileWriter(ins,true);
+            BufferedWriter instrucciones=new BufferedWriter(fwins);
+            instrucciones.write("Line        Cont        ETQ       CODOP     OPER     ModDir        CodiMaq");
             instrucciones.newLine();
+            instrucciones.close();
+            }
            // tabsim.write("Etiqueta|Valor");
            // tabsim.newLine();
              while((thisLine = lectb.readLine()) != null && banEnd != true){ //empieza a leer las lineas en loop
@@ -157,7 +163,7 @@ public class Practica7 {
                          /**
                          * Entra Codop
                          */
-                                if(linToken.matches("[a-zA-Z]{2,4}(?!\\d )[/.]{0,1}[a-zA-Z]$")&&banCom==false){
+                                if(linToken.matches("[a-zA-Z]{1,4}(?!\\d )[/.]{0,1}[a-zA-Z]$")&&banCom==false){
                          /**
                           *Inicia practica 2
                           */
@@ -185,6 +191,7 @@ public class Practica7 {
                                  //  System.out.println("Tabop: "+exCod);
                                    errtab=true;
                                   // System.out.println("excod "+exCod+" mayus"+mayus);
+                                  //System.out.println("Compara: "+mayus+" tabop: "+exCod);
                                    if(exCod.trim().equals(mayus.trim().toUpperCase())/*&&mayus!="null"&&mayus!=null&&mayus!=" "*/){
                                        errtab=false;
                                        codop=linToken.toUpperCase();
@@ -533,7 +540,8 @@ public class Practica7 {
                       tabsim.write(etiqueta.toUpperCase()+"|"+contador);
                       tabsim.newLine();
                       }else{//Entra a ordenar y borrar etiqueta 
-                          //op.Ordena(dir,etiqueta);
+                          System.out.println("Entro a ordenar");
+                          op.Ordena(dir,etiqueta,i);
                       }
                        tabsim.close();
                       }//Termina Tabsim
@@ -557,6 +565,9 @@ public class Practica7 {
                           }
                          }///Termina
                         if(compara==0){
+                            File ins =new File(dir+i);
+                            FileWriter fwins=new FileWriter(ins,true);
+                             BufferedWriter instrucciones=new BufferedWriter(fwins);
                       if(Res!="null"){
                      //inserta resultado de Operando 
                       operando=Res;
@@ -575,6 +586,8 @@ public class Practica7 {
                   instrucciones.newLine();      
                        contador=contador3;
                       }
+                      instrucciones.close();
+                      fwins.close();
                        }
                       }
                       
@@ -620,12 +633,16 @@ public class Practica7 {
                      moddir3="null";
                      ContLoc2="null";
                      if(linToken.matches(".*END.*")||linToken.matches(".*End.*")||linToken.matches(".*end.*")){//verifica si tiene End
+                         File ins =new File(dir+i);
+                         FileWriter fwins=new FileWriter(ins,true);
+                         BufferedWriter instrucciones=new BufferedWriter(fwins);
                            banEnd = true;
                            System.out.println("Entro End");
                            String nu=Integer.toString(c);
                            nu=op.fillContLoc(nu);
                            instrucciones.write(nu+"            "+contador+"             "+"null"+"                "+"END"+"               "+"null"+"                      "+"null"+"                 "+"null");
                            instrucciones.newLine();
+                           instrucciones.close();
                        }
                       
                     }
@@ -640,7 +657,7 @@ public class Practica7 {
             
              comentarios.close();
                error.close();
-               instrucciones.close();
+               
             //   comentarios.close();
                 }catch(Exception e){
                     System.err.println("Hubo un error en el codigo\n"+e);
