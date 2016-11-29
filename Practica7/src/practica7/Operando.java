@@ -2255,7 +2255,7 @@ public class Operando extends Practica7{
                                    }else{
                                        if(contban==false){
                                       // System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
-                                       auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                      // auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
                                        instruccion2.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                        instruccion2.newLine();
                                        
@@ -2266,7 +2266,7 @@ public class Operando extends Practica7{
                                                //ordena el archivo instruccion 
                                        if(ContLocAux!="null"){                
                                          //  System.out.println("Entro ContLocAux: "+numaux+"       "+ContLocAux+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
-                                           auxiliar=fillline(auxiliar[0],ContLocAux,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                         //  auxiliar=fillline(auxiliar[0],ContLocAux,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
                                   instruccion2.write(auxiliar[0]+"       "+ContLocAux+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);   
                                   instruccion2.newLine();
                                  // if(auxiliar[3].equals("EQU")||auxiliar[3].equals("ORG")){ 
@@ -2309,7 +2309,7 @@ public class Operando extends Practica7{
                                         contador3=fillContLoc(contador3);
                                        // System.out.println("ContLoc2: "+ContLoc2);
                                            }
-                                        auxiliar=fillline(auxiliar[0],contador,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                        //auxiliar=fillline(auxiliar[0],contador,auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
                                         //System.out.println("Entrada de datos recalculados: "+auxiliar[0]+"       "+contador+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                       instruccion2.write(auxiliar[0]+"       "+contador+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                       instruccion2.newLine(); 
@@ -2360,7 +2360,7 @@ public class Operando extends Practica7{
                                    auxiliar[5]=aucod2.nextToken();//Modo de direccion
                                    auxiliar[6]=aucod2.nextToken();//Codigo Maquina
                                 // System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
-                                       auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
+                                       //auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
                                        instrucciones.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                        instrucciones.newLine();
                                        
