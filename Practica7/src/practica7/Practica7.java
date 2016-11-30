@@ -30,7 +30,7 @@ public class Practica7 {
         String[] Busqueda  = new String[] {"null","null"};
         String[] Linea = new String[]{" "," "," "," "," "," "};
         thisLine = null;
-        String ContLoc="null", ContLoc2="null",FCC3="null",contador="0000";
+        String ContLoc="null", ContLoc2="null",FCC3="null",contador="0000",ContLocFCC="null";
         int poslin=0,c=0,pos=0,banbuffer=0,banCod=0,sioperI=2,operval=0,BanOrg=0,compara=0,tam2=0;
                 
         espacio es;
@@ -493,6 +493,7 @@ public class Practica7 {
                   cont=cont+byt;
                   ContLoc=Integer.toHexString(cont).toUpperCase();
                   }*/
+                          
                      ////////////////Inserta datos
                      if(banCod==1&&errBan==false/*&&compara==0*/){
                       
@@ -511,6 +512,14 @@ public class Practica7 {
                       }
                       
                       if(codoplin!="null"){
+                          /*if(codop.equals("FCC")){
+                              int d=FCC3.length();
+                              System.out.println("d: "+d);
+                              d=d-2;
+                              ContLoc=Integer.toString(d);
+                           System.out.println("d: "+d+" ContLoc: "+ContLoc);
+                       
+                          */
                       String contador3=contador; 
                       if(ContLoc2.equals("null")){
                           if(ContLoc.equals("null")){
@@ -572,7 +581,7 @@ public class Practica7 {
                      //inserta resultado de Operando 
                       operando=Res;
                       String nu=Integer.toString(c);
-                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin);
+                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin,CodMaq);
                   System.out.println(Linea[0]+"  co  "+Linea[1]+"  ee  "+Linea[2]+"  cc  "+Linea[3]+"  oo  "+Linea[4]+"  op  "+Linea[5]+"  cm  "+CodMaq);
                   instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
                   instrucciones.newLine();
@@ -580,7 +589,7 @@ public class Practica7 {
                   
                       }else{
                           String nu=Integer.toString(c);
-                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin);
+                      Linea=op.fillline(nu, contador, etiqueta, codop, operando, codoplin,CodMaq);
                   System.out.println(Linea[0]+"  co  "+Linea[1]+"  ee  "+Linea[2]+"  cc  "+Linea[3]+"  oo  "+Linea[4]+"  op  "+Linea[5]+"  cm  "+CodMaq);
                   instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
                   instrucciones.newLine();      
@@ -631,7 +640,9 @@ public class Practica7 {
                      CodMaq=" ";
                      moddir2="null";
                      moddir3="null";
+                    
                      ContLoc2="null";
+                     
                      if(linToken.matches(".*END.*")||linToken.matches(".*End.*")||linToken.matches(".*end.*")){//verifica si tiene End
                          File ins =new File(dir+i);
                          FileWriter fwins=new FileWriter(ins,true);
