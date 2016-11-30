@@ -1,0 +1,22 @@
+Line       Cont        ETQ        CODOP        OPER       ModDir     CodiMaq
+0002       0004        null        EQU        4       DTV     NULL
+0004       0000        null        ORG        0       DTV     NULL
+0005       0003        EN3        EQU        3       DTV     NULL
+0011       0003        null        DW        2       DTV     NULL
+0012       0005        null        DB        2       DTV     NULL
+0013       0006        null        DC.W        2       DTV     NULL
+0014       0008        null        DC.B        2       DTV     NULL
+0015       0009        E1        FCB        2       DTV     NULL
+0016       000A        null        FDB        2222       DTV     NULL
+0017       000C        null        DS        34       DTV     NULL
+0018       002E        null        DS.B        34       DTV     NULL
+0019       0050        null        DS.W        34       DTV     NULL
+0020       0094        E2        RMB        34       DTV     NULL
+0021       00B6        null        RMW        34       DTV     NULL
+0022       00FA        null        FCC        "HOLA       MUNDO"     DTV
+0026       0103        null        RMW        @500       DTV     NULL
+0033       0383        null        FCB        $ff       DTV     NULL
+0037       0384        E4        ADCA        $3       DIR     990003
+0041       0002        EN5        EQU        2       DTV     NULL
+0043        0002        null            FCC          "Solía \\ ñ \ ; mas"        DTV             NULL
+0044            0013             null                END               null                      null                 null

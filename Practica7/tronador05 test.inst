@@ -1,4 +1,4 @@
-Line        Cont        ETQ       CODOP     OPER     ModDir        CodiMaq
+Linea-----CONTLOC----ETQ---------CODOP----------OPER------------ModDir---------CodiMaq
 0001        1000        null            ORG          4096                  DTV             NULL
 0002        1000        null            SUBD         #4096                 IMM16           831000
 0003        1003        null            SUBD         #$00FF                IMM8            8300FF
