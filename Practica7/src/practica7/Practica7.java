@@ -398,7 +398,7 @@ public class Practica7 {
                                                
                                                etiqueta=linToken.trim();
                                                etiqueta=etiqueta.toUpperCase();
-                                               System.out.println("Print etiqueta  "+etiqueta);
+                                              // System.out.println("Print etiqueta  "+etiqueta);
                                                /*System.out.println("Print linToken "+linToken);
                                                System.out.println("Print etiqueta  "+etiqueta);*/
                                               //System.out.println("TRIM  "+etiqueta);
