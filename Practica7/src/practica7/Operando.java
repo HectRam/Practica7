@@ -6,11 +6,16 @@
 package practica7;
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
-
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import java.io.*;
 import java.io.BufferedReader;
@@ -43,7 +48,7 @@ public class Operando extends Practica7{
            System.out.println("Codop antes: "+codop);
          // System.out.println("Operando mod antes: "+Operando+" moddir: "+moddir);
          
-      if(Operando.matches("^[a-zA-Z]{0,8}[^;]{0,1}[\\w]$")||Operando.matches("^\\$[0-9A-Fa-f]*")||Operando.matches("^\\@[0-7].*")||Operando.matches("^\\%.*")||Operando.matches("^\\#.*")||Operando.matches("^[0-9].*")||Operando.matches("^[a-zA-Z].*")||Operando.matches("^\\[.*\\]$")||Operando.matches("^\\-.*")||Operando.matches("^\\,.*")||codop.equals("FCC")){
+      if(Operando.matches("^[a-zA-Z]{0,8}[^;]{0,1}[\\w]$")||Operando.matches("^\\$[0-9A-Fa-f]*")||Operando.matches("^\\@[0-7].*")||Operando.matches("^\\$.*")||Operando.matches("^\\%.*")||Operando.matches("^\\#.*")||Operando.matches("^[0-9].*")||Operando.matches("^[a-zA-Z].*")||Operando.matches("^\\[.*\\]$")||Operando.matches("^\\-.*")||Operando.matches("^\\,.*")||codop.equals("FCC")){
           /*   
           
         */  
@@ -701,10 +706,10 @@ public class Operando extends Practica7{
            
           ///////////////////////////////////////////////////Indexados   IDX'S
                               
-          if(Operando.matches("^[-]*([0-9a-dA-D])*,[+|-]*([X|x|Y|y|sp|SP|pc|PC])*$")&&BanContLoc!=1||Operando.matches("^[-]*([0-9a-dA-D])*,([X|x|Y|y|sp|SP|pc|PC])*([+|-])*$")&&BanContLoc!=1||Operando.matches("^\\$[0-9A-Fa-f]*,([X|x|Y|y|sp|SP|pc|PC])*[+|-]*$")&&BanContLoc!=1||Operando.matches("^\\$[0-9A-Fa-f]*,([+|-])*([X|x|Y|y|sp|SP|pc|PC])*$")&&BanContLoc!=1||Operando.matches("^\\@[-]*[0-7]*,([+|-])*([X|x|Y|y|sp|SP|pc|PC])*$")&&BanContLoc!=1||Operando.matches("^\\@[-]*[0-7]*,([X|x|Y|y|sp|SP|pc|PC])*[+|-]*$")&&BanContLoc!=1||Operando.matches("^\\%[10]*,([+|-])*([X|x|Y|y|sp|SP|pc|PC])*$")&&BanContLoc!=1||Operando.matches("^\\%[10]*,([X|x|Y|y|sp|SP|pc|PC])*[+|-]*$")&&BanContLoc!=1)
+          if(Operando.matches("^[-]*([0-9a-dA-D])*,[+|-]*([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&BanContLoc!=1||Operando.matches("^[-]*([0-9a-dA-D])*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*([+|-])*$")&&BanContLoc!=1||Operando.matches("^\\$[0-9A-Fa-f]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*[+|-]*$")&&BanContLoc!=1||Operando.matches("^\\$[0-9A-Fa-f]*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&BanContLoc!=1||Operando.matches("^\\@[-]*[0-7]*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&BanContLoc!=1||Operando.matches("^\\@[-]*[0-7]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*[+|-]*$")&&BanContLoc!=1||Operando.matches("^\\%[10]*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&BanContLoc!=1||Operando.matches("^\\%[10]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*[+|-]*$")&&BanContLoc!=1)
           {
              // banRel=true;
-              
+              System.out.println("Entro IDX"+Operando);
               if(!moddir.equals("REL")){
               String IDXcad=null;
               
@@ -727,14 +732,14 @@ public class Operando extends Practica7{
                   IDXB=true;
                   
               }
-             
-              if(Operando.matches("^$\\.*")&&IDXB==false){
+             System.out.println("Entro Hexa IDX: "+Operando);
+              if(Operando.matches("^\\$.*")&&IDXB==false){
                   
                   int  IDXint=Integer.parseInt(IDXcade,16);
                   //contienen Decimales
                   
                    // IDX 5Bits
-                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches(".*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches(".*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      IDXB=true;
                      Mdir="IDX";
                      if(IDXint>=-16&&IDXint<=-1&&!IDXcade.matches("0.*")){
@@ -750,7 +755,7 @@ public class Operando extends Practica7{
                   /////////////////////////////////////////////// 
                  }
                  //IDX 9 Bits
-                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches(".*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches(".*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      Mdir="IDX1";
                      IDXB=true;
                      if(IDXint>=-256&&IDXint<=-1&&!IDXcade.matches("0.*")){
@@ -779,7 +784,7 @@ public class Operando extends Practica7{
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
                   ///////////////////////////////////////////////
                  }
-                 if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
+                 if(IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP])*[+|-]*$")&&IDXB==false){
                      //System.out.println("Operando IDXPPP: "+Operando);
                      Mdir="IDXPP";
                      if(IDXint>=-8&&IDXint<=-1&&!IDXcade.matches("0.*")){
@@ -804,7 +809,7 @@ public class Operando extends Practica7{
                        int val=IDXcad.length();
                    String IDXcade=IDXcad.substring(1,val);
                   // IDXcad =IDX.nextToken();
-                
+                System.out.println("Entro a Octal: "+Operando);
               boolean IDXB=false;    
              // IDXfirst=IDX.nextToken();
               
@@ -818,11 +823,12 @@ public class Operando extends Practica7{
                   banRel=true;
                   int  IDXint=Integer.parseInt(IDXcade,8);
                   //contienen Decimales
-                  
+               //  System.out.println("Sigue Octal: "+IDXint);
                    // IDX 5Bits
-                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches(".*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches(".*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      IDXB=true;
-                     Mdir="IDX";
+                     Mdir="IDX5";
+                     System.out.println("Sigue Octal: "+IDXint);
                      if(IDXint>=-16&&IDXint<=-1){
                       
                       Res=a2(IDXint); 
@@ -836,7 +842,7 @@ public class Operando extends Practica7{
                   /////////////////////////////////////////////// 
                  }
                  //IDX 9 Bits
-                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches(".*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches(".*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches(".*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches(".*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      Mdir="IDX1";
                      IDXB=true;
                      if(IDXint>=-256&&IDXint<=-1){
@@ -865,7 +871,7 @@ public class Operando extends Practica7{
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
                   ///////////////////////////////////////////////
                  }
-                 if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
+                 if(IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP])*[+|-]*$")&&IDXB==false){
                      //System.out.println("Operando IDXPPP: "+Operando);
                      Mdir="IDXPP";
                      if(IDXint>=-8&&IDXint<=-1){
@@ -910,7 +916,7 @@ public class Operando extends Practica7{
                  // System.out.println("IDXint Binario"+IDXint);
                   
                    // IDX 5Bits
-                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      IDXB=true;
                      Mdir="IDX";
                      if(IDXint>=-16&&IDXint<=-1){
@@ -927,7 +933,7 @@ public class Operando extends Practica7{
                  }
                  //System.out.println("Logico"+IDXB);
                  //IDX 9 Bits
-                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      Mdir="IDX1";
                      IDXB=true;
                      if(IDXint>=-256&&IDXint<=-1){
@@ -943,7 +949,7 @@ public class Operando extends Practica7{
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
-                 if(IDXint<=-257&&IDXint>=-32768&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false||IDXint>=256&&IDXint<=65535&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint<=-257&&IDXint>=-32768&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false||IDXint>=256&&IDXint<=65535&&IDXB==false&&Operando.matches("^.*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      Mdir="IDX2";
                      IDXB=true;
                      if(IDXint>=-32768&&IDXint<=-1){
@@ -957,14 +963,10 @@ public class Operando extends Practica7{
                   Busqueda =Bytes(codop,Mdir,MaqDir,op);
                   ///////////////////////////////////////////////
                  }
-                 if(IDXint<=-1&&IDXint>=-8&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
+                 if(IDXint<=8&&IDXint>=1&&Operando.matches(".*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP])*[+|-]*$")&&IDXB==false){
                      //System.out.println("Operando IDXPPP: "+Operando);
                      Mdir="IDXPP";
-                     if(IDXint>=-8&&IDXint<=-1){
-                      
-                      Res=a2(IDXint); 
-                      IDXint=Integer.parseInt(Res);
-                  }
+                     
                      //System.out.println("Mdir Pre/Post: "+Mdir);
                      //////////////////// Busqueda de Bytes y CodMaq
                   String op=IDX.nextToken();
@@ -1000,12 +1002,20 @@ public class Operando extends Practica7{
                   banRel=true;
                   int  IDXint=Integer.parseInt(IDXcade);
                   //contienen Decimales
-                  
+                  System.out.println("Entero IDX: "+IDXint);
                    // IDX 5Bits
-                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-16&&IDXint<=15&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      IDXB=true;
                      Mdir="IDX5";
-                     
+                     if(IDXint>=-16&&IDXint<=-1){
+                      System.out.println("IDX1: "+IDXint);
+                      Res=a2(IDXint); 
+                      
+                      IDXint=Integer.parseInt(Res);
+                      
+                      System.out.println("IDX1: A2"+IDXint);
+                  }
+                     System.out.println("Entero IDX5: "+IDXint);
                   //////////////////// Busqueda de Bytes y CodMaq
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
@@ -1014,10 +1024,17 @@ public class Operando extends Practica7{
                   /////////////////////////////////////////////// 
                  }
                  //IDX 9 Bits
-                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|pc|PC])*$")&&IDXB==false){
+                 if(IDXint>=-256&&IDXint<=-17&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false||IDXint>=16&&IDXint<=255&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")&&IDXB==false){
                      Mdir="IDX1";
                      IDXB=true;
-                     
+                     if(IDXint>=-256&&IDXint<=-1){
+                      System.out.println("IDX1: "+IDXint);
+                      Res=a2(IDXint); 
+                      
+                      IDXint=Integer.parseInt(Res);
+                      
+                      System.out.println("IDX1: A2"+IDXint);
+                  }
                   //////////////////// Busqueda de Bytes y CodMaq
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
@@ -1025,9 +1042,16 @@ public class Operando extends Practica7{
                   /////////////////////////////////////////////// 
                  }
                  //IDX 16Bits
-                 if(IDXint<=-257&&IDXint>=-32768&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|pc|PC])*$")||IDXint>=256&&IDXint<=65535&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|pc|PC])*$")){
+                 if(IDXint<=-257&&IDXint>=-32768&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")||IDXint>=256&&IDXint<=65535&&IDXB==false&&Operando.matches("^[-]?[0-9]*,([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")){
                      Mdir="IDX2";
                      IDXB=true;
+                     if(IDXint>=-32768&&IDXint<=-1){
+                      System.out.println("IDX1: "+IDXint);
+                      Res=a2(IDXint); 
+                      
+                      IDXint=Integer.parseInt(Res);
+                      System.out.println("IDX2: A2"+IDXint);
+                  }
                      //////////////////// Busqueda de Bytes y CodMaq
                   String op=IDX.nextToken();
                   String MaqDir= Integer.toBinaryString(IDXint);
@@ -1036,7 +1060,7 @@ public class Operando extends Practica7{
                  }
                  //IDX Pre/Post
                 // System.out.println("Operando IDXPPPAfU: "+Operando);
-                 if(IDXint<=-1&&IDXint>=-8&&Operando.matches("^[-]*[0-9]*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false||IDXint<=8&&IDXint>=1&&Operando.matches("^[-]*[0-9]*,([+|-])*([X|x|Y|y|sp|SP])*[+|-]*$")&&IDXB==false){
+                 if(IDXint<=8&&IDXint>=1&&Operando.matches("^[-]*[0-9]*,([+|-])*([X|x|Y|y|sp|SP|Sp|sP])*[+|-]*$")&&IDXB==false){
                     // System.out.println("Operando IDXPPP: "+Operando);
                      Mdir="IDXPP";
                      //System.out.println("Mdir Pre/Post: "+Mdir);
@@ -1049,7 +1073,7 @@ public class Operando extends Practica7{
                  }
                  
                 }else{///////////////////////////// IDX 5Bits sin digitos
-                      if(Operando.matches(",([X|x|Y|y|sp|SP|pc|PC])*$")){
+                      if(Operando.matches(",([X|x|Y|y|sp|SP|Sp|sP|pc|PC|pC|Pc])*$")){
                           Mdir="IDX5";
                  //  String   IDXcade=IDX.nextToken();
                    System.out.println("IDXcade: "+IDXcade);
@@ -1069,7 +1093,7 @@ public class Operando extends Practica7{
           }//termina IDX
           
           /////////////////////////////////////////////////////////////16 Bits Indirecto [IDX2]
-          if(Operando.matches("^\\[[\\%\\$\\@]{0,1}[-0-9]+,[XxYyspSPpcPC]*\\]$")){
+          if(Operando.matches("^\\[[\\%\\$\\@]{0,1}[-0-9A-Fa-f]+,[XxYyspSPpcPC]*\\]$")){
               //int Idx2=0;
               int tam=Operando.length();
               String IDX2=Operando.substring(1,tam-1);//-1 quita el corchete final
@@ -1168,10 +1192,11 @@ public class Operando extends Practica7{
           }
           }
           ////////////////////////////////////////////////////////////Indexado Indirecto de Acumulador
-          if(Operando.matches("^\\[([D|d]){1,1},")){
-              
+          if(Operando.matches("^\\[[Dd]{1,1},.*")){
+              System.out.println("D,IDX: "+Operando);
               
           if(Operando.matches("\\[([D|d])*,([X|x|Y|y|sp|SP|pc|PC])*\\]")){
+              System.out.println("D,IDX Dentro....: "+Operando);
               int tam=Operando.length();
               String IDXD=Operando.substring(1,tam-1);//-1 quita el corchete final
               StringTokenizer  IDX= new StringTokenizer(IDXD,",");
@@ -1685,7 +1710,7 @@ public class Operando extends Practica7{
    ///////////////////////////////////////////////////IDX´S/////////////////////////////////////////////////////////////////////////////////////////////////
                                        if(dir.equals(moddir)&&IDX5.equals("IDX5")&&Operando!="null"){
                                            int siz=CodMaq.length();
-                                           //System.out.println("Binario: "+CodMaq);
+                                           System.out.println("Binario: "+CodMaq+" siz: "+siz);
                                            if(siz>4){
                                                String auxbin=CodMaq.substring(0, siz-5);
                                                int siz2=auxbin.length();
@@ -1696,7 +1721,16 @@ public class Operando extends Practica7{
                                                if(siz==1){
                                                   CodMaq="00000"+CodMaq;
                                                }else{
-                                               CodMaq="00"+CodMaq;
+                                                   if(siz==2){
+                                                       CodMaq="0000"+CodMaq;
+                                                   }else{
+                                                       if(siz==3){
+                                                           CodMaq="000"+CodMaq;
+                                                           
+                                                       }else{
+                                                           CodMaq="00"+CodMaq;
+                                                       }
+                                                   }
                                                }
                                            }
                                            String rr=Operando;
@@ -1731,8 +1765,11 @@ public class Operando extends Practica7{
                                        if(dir.equals(moddir)&&dir.equals("IDX1")&&EtOp!="null"){
                                           String z="0",s="0",n111="111";
                                            int siz=CodMaq.length();
+                                           System.out.println(" CodMaq: "+CodMaq);
                                            int valor=Integer.parseInt(CodMaq,2);
+                                           System.out.println(" CodMaq: "+CodMaq+" valor "+valor);
                                            String rr=EtOp,VHex2="null";
+                                          
                                            rr=rr.toUpperCase();
                                            if(rr.equals("X")){
 			                    rr="00";
@@ -1746,25 +1783,30 @@ public class Operando extends Practica7{
 		                             if(rr.equals("PC")){
 			                      rr="11";
 		                            }
-                                           //  System.out.println("Valor IDX1: "+valor);
-                                             if(-256<=valor&&valor<0){
+                                              if(8<siz){
                                                  s="1";
-                                                 String VHex=Integer.toHexString(valor);
-                                                  VHex2=VHex.substring(14,16);
+                                                 String VHex=" "; //Integer.toHexString(valor);
+                                                 int siz2=CodMaq.length();
+                                                  VHex2=CodMaq.substring(0,siz2-4);
+                                                 int siz3=VHex2.length();
+                                                 System.out.println("SIZ2: "+siz2+" siz3: "+siz3+" VHex2: "+VHex2);
+                                                   VHex2=CodMaq.substring(siz3,siz2);
                                                  
                                              }
                                              else{
+                                               //int valor=Integer.parseInt(CodMaq,2);
                                                   VHex2=Integer.toHexString(valor);
                                              }
+                                            System.out.println("Valor IDX1: "+valor);
                                              System.out.println("ValorHex: "+VHex2);
                                              String R111rr0zs=n111+rr+"0"+z+s;
-                                             String R111r=R111rr0zs.substring(0,7-3);
+                                             String R111r=R111rr0zs.substring(0,8-4);
                                              int a=Integer.parseInt(R111r,2);
                                              String r0zs=R111rr0zs.substring(4,8);
                                              int b=Integer.parseInt(r0zs,2);
                                              String hex=Integer.toHexString(a);
                                              String hex2=Integer.toHexString(b);
-                                             // System.out.println("R111rr0zs "+R111rr0zs+" R111r: "+R111r+" r0zs: "+r0zs+" n111: "+n111+" rr: "+rr+" z: "+z+" s: "+s);
+                                              System.out.println("R111rr0zs "+R111rr0zs+" R111r: "+R111r+" r0zs: "+r0zs+" n111: "+n111+" rr: "+rr+" z: "+z+" s: "+s);
                                              Bytes[0]=bytesxcal;
                                              Bytes[1]=codcal+hex.toUpperCase()+hex2.toUpperCase()+VHex2;
                                        }//Termina IDX1
@@ -1811,50 +1853,80 @@ public class Operando extends Practica7{
                                        if(dir.equals(moddir)&&IDX5.equals("IDXPP")&&Operando!="null"){
                                            int siz=Operando.length();
                                            String rr="00",p="0",nnnn="0000";
-                                           int valor;
-                                           
-                                           if(Operando.matches("^[+][XxYySPspPCpc]{1,2}$")||Operando.matches("^[XxYySPspPCpc]{1,2}[+]$")){
+                                           int valor,n=1;
+                                           System.out.println("siz "+siz);
+                                           ///Post
+                                           if(Operando.matches("^[XxYySPspPCpc]{1,2}[+|-]$")){
                                                p="1";
-                                               if(Operando.matches("^[+][XxYySPspPCpc]{1,2}$")){
-                                               
-                                               rr=Operando.substring(1,siz);
-                                               
+                                               if(siz==3){
+                                                   n=2;
                                                }
-                                               if(Operando.matches("^[XxYySPspPCpc]{1,2}[+]$")){
                                                rr=Operando.substring(0,siz-1);
-                                               }
+                                        String rrop=Operando.substring(n,siz);
                                                valor=Integer.parseInt(CodMaq,2);
-                                               valor--;
-                                               if(valor==1){
-                                                   nnnn="0000";
-                                               }else
-                                               {
+                                               if(rrop.equals("-")){
+                                               switch(valor){
+                                                   case 1: nnnn="1111";
+                                                     break;
+                                                   case 2: nnnn="1110";
+                                                     break;
+                                                   case 3: nnnn="1101";
+                                                     break;
+                                                   case 4: nnnn="1100";
+                                                     break;
+                                                   case 5: nnnn="1011";
+                                                     break;
+                                                   case 6: nnnn="1010";
+                                                     break;
+                                                   case 7: nnnn="1001";
+                                                     break;  
+                                                   case 8: nnnn="1000";
+                                                     break; 
+                                               }
+                                               }
+                                               if(rrop.equals("+")){
+                                                    valor=valor-1;
+                                               
                                                    nnnn=Integer.toBinaryString(valor);
                                                }
-                                             //  System.out.println("CodMaq: "+CodMaq+" valor: "+valor);
+                                               System.out.println("CodMaq: "+CodMaq+" valor: "+valor+"String "+nnnn+" rrop: "+rrop);
                                            }
-                                           if(Operando.matches("^[-][XxYySPspPCpc]{1,2}$")||Operando.matches("^[XxYySPspPCpc]{1,2}[-]$")){
+                                           ////Pre
+                                           if(Operando.matches("^[+|-][XxYySPspPCpc]{1,2}$")){
                                                p="0";
-                                               if(Operando.matches("^[-][XxYySPspPCpc]{1,2}$")){
-                                                   
+                                               if(siz==3){
+                                                   n=2;
+                                               }
                                                rr=Operando.substring(1,siz);
+                                             String rrop=Operando.substring(0,siz-n);///negativo o positivo
+                                               valor=Integer.parseInt(CodMaq,2);
                                                
+                                               if(rrop.equals("-")){
+                                               switch(valor){
+                                                   case 1: nnnn="1111";
+                                                     break;
+                                                   case 2: nnnn="1110";
+                                                     break;
+                                                   case 3: nnnn="1101";
+                                                     break;
+                                                   case 4: nnnn="1100";
+                                                     break;
+                                                   case 5: nnnn="1011";
+                                                     break;
+                                                   case 6: nnnn="1010";
+                                                     break;
+                                                   case 7: nnnn="1001";
+                                                     break;  
+                                                   case 8: nnnn="1000";
+                                                     break; 
                                                }
-                                               if(Operando.matches("^[XxYySPspPCpc]{1,2}[-]$")){
-                                               rr=Operando.substring(0,siz-1);
                                                }
+                                               if(rrop.equals("+")){
+                                                    valor=valor-1;
                                                
-                                               //valor=Integer.parseInt(CodMaq,2);
-                                                  // String Aux=Integer.toBinaryString(valor);
-                                                   int n=CodMaq.length();
-                                                   
-                                                  nnnn=CodMaq.substring(0,n-4);
-                                                  int n2=nnnn.length();
-                                                  //System.out.println("CodMaq: "+CodMaq+" n: "+n+" n2: "+n2);
-                                                  //System.out.println("Operando: "+Operando+" rr: "+rr+" siz: "+siz);
-                                                  //System.out.println("rr: "+rr+"n: "+n+"n2: "+n2);
-                                                  nnnn=CodMaq.substring(n2,n);
-                                                  //System.out.println("nnnn: "+nnnn);
+                                                   nnnn=Integer.toBinaryString(valor);
+                                               }
+                                               System.out.println(" Pre CodMaq: "+CodMaq+" valor: "+valor+" rrop: "+rrop);
                                            }
                                            rr=rr.toUpperCase();
                                            if(rr.equals("X")){
@@ -1941,7 +2013,7 @@ public class Operando extends Practica7{
                                                //System.out.println("CodMaq-: "+CodMaq);
                                                CodMaq=fillContLoc(CodMaq);
                                             }else{
-                                               int Hex=Integer.parseInt(CodMaq,16);
+                                               int Hex=Integer.parseInt(CodMaq);
                                                 CodMaq=Integer.toHexString(Hex);
                                                 //System.out.println("CodMaq+: "+CodMaq);
                                                 CodMaq=fillContLoc(CodMaq);
@@ -2295,6 +2367,7 @@ public class Operando extends Practica7{
                                        contban=true;
                                    }else{
                                        if(contban==false){
+                                           
                                        System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                       // auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
                                        instruccion2.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
@@ -2402,7 +2475,162 @@ public class Operando extends Practica7{
                                    auxiliar[6]=aucod2.nextToken();//Codigo Maquina
                                 // System.out.println("Copia Normal: "+auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
                                        //auxiliar=fillline(auxiliar[0],auxiliar[1],auxiliar[2],auxiliar[3],auxiliar[4],auxiliar[5]);
-                                       instrucciones.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"       "+auxiliar[5]+"     "+auxiliar[6]);
+                                      /* String[]aux = new String[]{" "," "," "," "," "," "," "};
+                                               aux[0]=auxiliar[0];
+                                               aux[1]=auxiliar[1];
+                                               aux[2]=auxiliar[2];
+                                               aux[3]=auxiliar[3];
+                                               aux[4]=auxiliar[4];
+                                               aux[5]=auxiliar[5];
+                                               aux[6]=auxiliar[6];
+                                       aux=fillline(aux[0],aux[1],aux[2],aux[3],aux[4],aux[5],aux[6]);
+                                               auxiliar[0]=aux[0];
+                                               auxiliar[1]=aux[1];
+                                               auxiliar[2]=aux[2];
+                                               auxiliar[3]=aux[3];
+                                               auxiliar[4]=aux[4];
+                                               auxiliar[5]=aux[5];
+                                               auxiliar[6]=aux[6];
+                                       
+ */                                      
+                                      int size2=auxiliar[1].length();
+                                      switch(size2){
+            
+            case 1: 
+                auxiliar[1]="000"+auxiliar[1];
+                break;
+            case 2:
+                auxiliar[1]="00"+auxiliar[1];
+                break;
+            case 3:
+                auxiliar[1]="0"+auxiliar[1];
+            case 4:
+                auxiliar[1]=auxiliar[1];
+                break;
+        }
+                                      int size3=auxiliar[2].length();
+                                      switch(size3){
+            
+            case 1: 
+                auxiliar[2]=auxiliar[2]+"       ";
+                break;
+            case 2:
+                auxiliar[2]=auxiliar[2]+"      ";
+                break;
+            case 3:
+                auxiliar[2]=auxiliar[2]+"     ";
+                break;
+            case 4:
+                auxiliar[2]=auxiliar[2]+"    ";
+                break;
+            case 5:
+                auxiliar[2]=auxiliar[2]+"   ";
+                break;
+            case 6:
+                auxiliar[2]=auxiliar[2]+"  ";
+                break;
+            case 7:
+                auxiliar[2]=auxiliar[2]+" ";
+                break;
+            case 8:
+                auxiliar[2]=auxiliar[2];
+                break;    
+        }                      int size4=auxiliar[3].length();
+                                      switch(size4){
+            
+            case 1: 
+                auxiliar[3]=auxiliar[3]+"    ";
+                break;
+            case 2:
+                auxiliar[3]=auxiliar[3]+"   ";
+                break;
+            case 3:
+                auxiliar[3]=auxiliar[3]+"  ";
+                break;
+            case 4:
+                auxiliar[3]=auxiliar[3]+" ";
+                break;
+            case 5:
+                auxiliar[3]=auxiliar[3];
+                break;  
+        }
+                                 int size5=auxiliar[4].length();   
+                                      switch(size5){
+            
+            case 1: 
+                auxiliar[4]=auxiliar[4]+"             ";
+                break;
+            case 2:
+                auxiliar[4]=auxiliar[4]+"            ";
+                break;
+            case 3:
+                auxiliar[4]=auxiliar[4]+"           ";
+                break;
+            case 4:
+                auxiliar[4]=auxiliar[4]+"          ";
+                break;
+            case 5:
+                auxiliar[4]=auxiliar[4]+"         ";
+                break;
+            case 6:
+                auxiliar[4]=auxiliar[4]+"        ";
+                break;
+            case 7:
+                auxiliar[4]=auxiliar[4]+"       ";
+                break;
+            case 8:
+                auxiliar[4]=auxiliar[4]+"      ";
+                break;    
+            case 9:
+                auxiliar[4]=auxiliar[4]+"     ";
+                break;
+            case 10:
+                auxiliar[4]=auxiliar[4]+"    ";
+                break;
+                case 11:
+                auxiliar[4]=auxiliar[4]+"   ";
+                break;
+                case 12:
+                auxiliar[4]=auxiliar[4]+"  ";
+                break;
+                case 13:
+                auxiliar[4]=auxiliar[4]+" ";
+                break;
+                case 14:
+                auxiliar[4]=auxiliar[4];
+                default:
+                auxiliar[4]=auxiliar[4];    
+                break;
+        }
+                int size6=auxiliar[5].length();
+        switch(size6){
+            
+            case 1: 
+                auxiliar[5]=auxiliar[5]+"       ";
+                break;
+            case 2:
+                auxiliar[5]=auxiliar[5]+"      ";
+                break;
+            case 3:
+                auxiliar[5]=auxiliar[5]+"     ";
+                break;
+            case 4:
+                auxiliar[5]=auxiliar[5]+"    ";
+                break;
+            case 5:
+                auxiliar[5]=auxiliar[5]+"   ";
+                break;
+            case 6:
+                auxiliar[5]=auxiliar[5]+"  ";
+                break;
+            case 7:
+                auxiliar[5]=auxiliar[5]+" ";
+                break;
+            case 8:
+                auxiliar[5]=auxiliar[5];
+                break;    
+        }
+                                      instrucciones.write(auxiliar[0]+"       "+auxiliar[1]+"        "+auxiliar[2]+"        "+auxiliar[3]+"        "+auxiliar[4]+"         "+auxiliar[5]+"             "+auxiliar[6]);
                                        instrucciones.newLine();
                                        
                                }
@@ -2439,13 +2667,22 @@ public class Operando extends Practica7{
             String Res=A2aux.substring(0,siz2-siz);       
              System.out.println("Res: "+Res);*/
              /////////2
-             int x = valor;  
+            int x = valor;  
              int y = ~x;   
              int  z = y + 1;
              
              String Res=Integer.toString(z);
+             System.out.println("Res A2: "+Res);
+             /*String bin=Integer.toBinaryString(valor);
+             int siz=bin.length();
+             String bin2=bin.substring(0,siz-5);
+             int siz2=bin2.length();
+             String bin3=bin.substring(siz2,siz);
              
+             int entero=Integer.parseInt(bin3,2);
              
+             System.out.println("siz: "+siz+" siz2: "+siz2+" binary: "+bin+" entero: "+entero);
+             String Res=Integer.toString(entero);*/
             //int n=siz;
             //siz=siz-1;
             /*
@@ -2459,7 +2696,11 @@ public class Operando extends Practica7{
             int siz2=A2.length();
             A2aux=A2.substring(0,siz2-siz);
             */
-            
+           /* String aux=Integer.toBinaryString(valor);
+            int siz=aux.length();
+            siz=1;
+            aux.substring(siz,siz);
+            */
             return Res;
         }
     }
