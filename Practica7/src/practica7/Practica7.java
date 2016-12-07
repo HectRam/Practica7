@@ -532,9 +532,13 @@ public class Practica7 {
                   cont=cont+byt;
                   contador3=Integer.toHexString(cont).toUpperCase();
                           }else{
+                              if(codop.equals("EQU")){
+                              contador3=ContLoc2;
+                          }else{
                               contador=ContLoc2;
                               contador3=ContLoc2;
                               System.out.println("ContLoc2: "+ContLoc2);
+                          }
                           }
                       contador3=op.fillContLoc(contador3);
                           ///Entra Tabsim
@@ -546,8 +550,13 @@ public class Practica7 {
                      // System.out.println("Codop Equ: tronador04"+codop);
                       compara= op.TabsimCheck(dir,etiqueta);
                       if(compara==0){
+                      if(codop.equals("EQU")){
+                      tabsim.write(etiqueta.toUpperCase()+"|"+contador3);
+                      tabsim.newLine();
+                       }else{
                       tabsim.write(etiqueta.toUpperCase()+"|"+contador);
                       tabsim.newLine();
+                       }
                       }else{//Entra a ordenar y borrar etiqueta 
                           System.out.println("Entro a ordenar");
                           op.Ordena(dir,etiqueta,i);
@@ -577,6 +586,14 @@ public class Practica7 {
                             File ins =new File(dir+i);
                             FileWriter fwins=new FileWriter(ins,true);
                              BufferedWriter instrucciones=new BufferedWriter(fwins);
+                             if(codop.equals("EQU")){
+                               String nu=Integer.toString(c);
+                      Linea=op.fillline(nu, contador3, etiqueta, codop, operando, codoplin,CodMaq);
+                  System.out.println(Linea[0]+"  co  "+Linea[1]+"  ee  "+Linea[2]+"  cc  "+Linea[3]+"  oo  "+Linea[4]+"  op  "+Linea[5]+"  cm  "+CodMaq);
+                  instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
+                  instrucciones.newLine();   
+                                 
+                             }else{
                       if(Res!="null"){
                      //inserta resultado de Operando 
                       operando=Res;
@@ -594,6 +611,7 @@ public class Practica7 {
                   instrucciones.write(Linea[0]+"        "+Linea[1]+"        "+Linea[2]+"        "+Linea[3]+"        "+Linea[4]+"        "+Linea[5]+"        "+CodMaq);
                   instrucciones.newLine();      
                        contador=contador3;
+                      }
                       }
                       instrucciones.close();
                       fwins.close();
