@@ -1,0 +1,15 @@
+Line        Cont        ETQ       CODOP     OPER     ModDir        CodiMaq
+0001        0465        null            ORG          1125                  DTV             NULL
+0002        0465        null            STS          [@125,PC]             [IDX2]          6FFB0055
+0003        0469        A1              STS          [D,SP]                [D,IDX]         6FF7
+0005        046B        null            JMP          [D,PC]                [D,IDX]         05FF
+0006        046D        null            ADCA         [D,X]                 [D,IDX]         A9E7
+0007        046F        null            ADCB         [D,SP]                [D,IDX]         E9F7
+0008        0471        A4              ADDA         [D,Y]                 [D,IDX]         ABEF
+0010        0473        null            LDAA         [10,X]                [IDX2]          A6E3000A
+0011        0477        null            LDAA         [31483,X]             [IDX2]          A6E37AFB
+0013        047B        null            STS          [$0FFFF,PC]           [IDX2]          6FFBFFFF
+0014        047F        null            LDAA         [%010,X]              [IDX2]          A6E30002
+0015        0483        A3              LDAA         [@3143,X]             [IDX2]          A6E30663
+0016        0487        null            STS          [125,PC]              [IDX2]          6FFB007D
+0017            048B             null                END               null                      null                 null
